@@ -63,9 +63,9 @@ endly -c=pg
 ## Endly services
 
 Service is actual execution unit, in order to run any workflow's action or piple task you have use specify : 
-- service ID, 
-- action, 
-- actual action request.
+- service ID 
+- action
+- actual action request
 
 
 ```bash
