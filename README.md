@@ -131,61 +131,55 @@ commands:
 
 See more about [workflow](https://github.com/viant/endly/tree/master/doc/workflow)
 
-## Validation
+
+##### Running multiple tasks:
 
 
 ```bash
-endly -s=validator -a=assert
-
-endly -r=run
+    endly -r=test
 ```
 
-@run.yaml
+@test.yaml
+
 ```yaml
+defaults:
+  target:
+     URL: ssh://127.0.0.1/
+     credentials: localhost
 pipeline:
-  build:
-    action: workflow:print
-    message: building app ...
+  init:
+    action: selenium:start
+    version: 3.4.0
+    port: 8085
+    sdk: jdk
+    sdkVersion: 1.8
   test:
-    workflow: assert
-    actual:
-      key1: value1
-      key2: value20
-      key3: value30
-    expected:
-      key1: value1
-      key2: value2
-      key3: value3
-      key4: value4     
+    action: selenium:run
+    browser: firefox
+    remoteSelenium:
+      URL: http://127.0.0.1:8085
+    commands:
+      - get(http://play.golang.org/?simple=1)
+      - (#code).clear
+      - (#code).sendKeys(package main
+
+          import "fmt"
+
+          func main() {
+              fmt.Println("Hello Endly!")
+          }
+        )
+      - (#run).click
+      - command: output = (#output).text
+        exit: $output.Text:/Endly/
+        sleepTimeMs: 1000
+        repeat: 10
+      - close
+    expect:
+      output:
+        Text: /Hello Endly!/
 ```
 
-
-```text
-endly -w=assert -t='?'
-endly -w assert -p -f=yaml
-```
-
-**Simple validation**
-```text
-endly -w=assert actual A expected B
-``` 
-
-**Data structure validation**
-```text
-endly -w=assert actual '@actual1.json' expected '@expected1.json'
-``` 
-
-**Data structure transformation validation**
-```text
-endly -d=true -w=assert actual '@actual2.json' expected '@expected2.json'
-```
-
-**Data structure alternative transformation validation (switch/case)**
-```text
-endly -d=true -w=assert actual '@actual3.json' expected '@expected3.json'
-```
-
-See more about [validation expression](https://github.com/viant/assertly#validation)
 
 
 ## E2E testing workflow generator
@@ -402,4 +396,64 @@ endly -w=action service='http/runner' action=send request='@send.json'
 	}
 }
 ```
+
+
+
+
+
+## Validation
+
+
+```bash
+endly -s=validator -a=assert
+
+endly -r=run
+```
+
+@run.yaml
+```yaml
+pipeline:
+  build:
+    action: workflow:print
+    message: building app ...
+  test:
+    workflow: assert
+    actual:
+      key1: value1
+      key2: value20
+      key3: value30
+    expected:
+      key1: value1
+      key2: value2
+      key3: value3
+      key4: value4     
+```
+
+
+```text
+endly -w=assert -t='?'
+endly -w assert -p -f=yaml
+```
+
+**Simple validation**
+```text
+endly -w=assert actual A expected B
+``` 
+
+**Data structure validation**
+```text
+endly -w=assert actual '@actual1.json' expected '@expected1.json'
+``` 
+
+**Data structure transformation validation**
+```text
+endly -d=true -w=assert actual '@actual2.json' expected '@expected2.json'
+```
+
+**Data structure alternative transformation validation (switch/case)**
+```text
+endly -d=true -w=assert actual '@actual3.json' expected '@expected3.json'
+```
+
+See more about [validation expression](https://github.com/viant/assertly#validation)
 
