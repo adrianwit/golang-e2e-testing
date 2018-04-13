@@ -217,7 +217,7 @@ cd app:
 2) Testing workflow main assets:
 - System
 - Datastore
-- App
+- App ([see more about build workflow](https://github.com/viant/endly/tree/master/shared/workflow/app))
 - Setup data
 - Regression
 
@@ -252,8 +252,8 @@ endly
 
 4) Adding selenium test
 
-[WebDriver](https://github.com/tebeka/selenium/blob/master/selenium.go#L213)
-[WebElement](https://github.com/tebeka/selenium/blob/master/selenium.go#L370)
+- [WebDriver](https://github.com/tebeka/selenium/blob/master/selenium.go#L213)
+- [WebElement](https://github.com/tebeka/selenium/blob/master/selenium.go#L370)
 
 
 
