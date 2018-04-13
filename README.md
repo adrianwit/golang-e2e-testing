@@ -230,9 +230,9 @@ endly
 ```
   
 **WEB pages**:
-  - http://127.0.0.1/
-  - http://127.0.0.1/form.html
-  - http://127.0.0.1/dummy.html  
+  - http://127.0.0.1:8080/
+  - http://127.0.0.1:8080/form.html
+  - http://127.0.0.1:8080/dummy.html  
   
 **[REST endpoint](https://github.com/viant/endly/blob/master/gen/template/app/go/webdb/router.go)**
   - http://127.0.0.1:8080/v1/api/dummytype
