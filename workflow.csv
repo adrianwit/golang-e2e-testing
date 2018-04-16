@@ -1,0 +1,6 @@
+Workflow,Name,Tasks,
+,workflow,%Tasks,
+[]Tasks,Name,Actions,
+,task1,%Task1,
+[]Task1,Service,Action,Request
+,exec,run,@run
