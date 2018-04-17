@@ -211,8 +211,55 @@ cd app:
 
 #### Workflow assets:
 
-1) [Application](https://github.com/viant/endly/tree/master/gen/template/app/go/webdb):
-   [Datastore Schema](https://github.com/viant/endly/blob/master/gen/template/datastore/mysql/ddl/schema.sql)
+
+
+```bash
+  myapp
+    | - app source code
+    | - endly  
+    |    |- system.yaml
+    |    |- datastore
+    |    |    | - $db   
+    |    |    |    | - dictionary
+    |    |    | - schema.sql
+    |    |- datastore.yaml
+    |    |- app.yaml
+    |    |- regression
+    |    |- var
+    |    |   |- init.json
+    |    |- req
+    |    |   |- run.yaml
+    |    |- manager.csv         
+
+```
+
+
+
+```bash
+  myapp
+    | - app source code
+    | - endly  
+    |    |- regression
+    |    |     | - regression.csv
+    |    |     | - var/
+    |    |     |    |- /init.json
+    |    |     |    |- /test_init.json    
+    |    |     | - req /
+    |    |     |    | - data.yaml
+    |    |     |                      
+    |    |     | - use_cases
+    |    |     |    | - 001_xx_case  
+    |    |     |    |     | - $db_data.json
+    |    |     |    |     | - selenium_test.yaml
+    |    |     |    |     | - http_test.json
+    |    |     |    |     | - rest_test.json    
+    |    |     |    |     | - use_case.txt    
+```    
+
+1) Workflow application and datastore schema
+
+-   [Application](https://github.com/viant/endly/tree/master/gen/template/app/go/webdb):
+-   [Datastore Schema](https://github.com/viant/endly/blob/master/gen/template/datastore/mysql/ddl/schema.sql)
 
 2) Testing workflow main assets:
 - System
