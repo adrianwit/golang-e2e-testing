@@ -96,7 +96,7 @@ pipeline:
     action: "exec:run"
     commands:
       - whoami
-      - echo '${prams.message} $cmd[0].stdout
+      - echo '${params.message} $cmd[0].stdout'
 ```
 
 See more about [pieeline](https://github.com/viant/endly/tree/master/doc/pipeline)
@@ -126,7 +126,7 @@ target:
   credentials: localhost
 commands:
   - whoami
-  - echo '${prams.message} $cmd[0].stdout
+  - echo '${params.message} $cmd[0].stdout
 ```
 
 See more about [workflow](https://github.com/viant/endly/tree/master/doc/workflow)
