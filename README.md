@@ -486,6 +486,9 @@ so that it can be reference as $dummy.<FIELD>
 endly -t=test
 ```
 
+
+c) modify regression/use_cases_001_xx_case/rest_test.json
+
 @send.json
 ```json
 {
