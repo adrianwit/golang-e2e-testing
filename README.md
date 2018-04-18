@@ -483,7 +483,7 @@ so that it can be reference as $dummy.<FIELD>
 
 
 ```bash
-endly -w=action service='rest/runner' action=send request='@send.json'
+endly -t=test
 ```
 
 @send.json
