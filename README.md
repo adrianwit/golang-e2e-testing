@@ -446,6 +446,93 @@ endly -w=action service='http/runner' action=send request='@send.json'
 
 
 
+6) Adding test with use case data:
+
+
+a) change regression/use_cases/001_xx_case/db1_data.json to the following
+
+```json
+[
+  {
+    "Table": "dummy",
+    "Value": {
+      "id": "$seq.dummy",
+      "name": "My super dummy 1",
+      "type_id": 2
+    },
+    "PostIncrement": [
+      "seq.dummy"
+    ],
+    "Key": "${tagId}_dummy"
+  }
+]
+```
+
+b) note that in the regression/var/test_init.json the added record is placed to the context state:
+
+so that it can be reference as $dummy.<FIELD>
+
+```json
+[
+  {
+    "Name": "dummy",
+    "From": "<-dsunit.${tagId}_dummy"
+  }
+]
+```
+
+
+```bash
+endly -w=action service='rest/runner' action=send request='@send.json'
+```
+
+@send.json
+```json
+{
+
+    "Method": "GET",
+    "URL": "http://127.0.0.1:8080/v1/api/dummy/${dummy.id}",
+    "Request":{},
+	"Expect": {
+        "Data": {
+            "Id":"$dummy.id",
+            "Name":"$dummy.name",
+            "TypeId":"${dummy.type_id}"
+        }	
+	}
+}
+```
+
+
+
+
+6) Adding REST test
+
+
+```bash
+endly -w=action service='rest/runner' action=send request='@send.json'
+```
+
+@send.json
+```json
+{
+
+    "Method": "POST",
+    "URL": "http://127.0.0.1:8080/v1/api/dummy",
+    "Request":{
+        "Data":{
+            "TypeId":1,
+            "Name":"dummy 33333"
+        }
+    },
+	"Expect": {
+        "Data": {
+            "Name":"dummy 33333"
+        }	
+	}
+}
+```
+
 
 
 ## Validation
