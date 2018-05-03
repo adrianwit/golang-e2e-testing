@@ -37,6 +37,10 @@ endly -c=pg
 
 a) Atom with tablr plugin  (apm install tablr)
 
+b) IntelJ with Database Tools and SQL plugin
+    https://www.jetbrains.com/help/idea/editing-csv-and-tsv-files.html
+
+
 
 ## Typical e2e testing workflow
 
