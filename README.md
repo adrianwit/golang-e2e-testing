@@ -33,6 +33,11 @@ Enter Password:  dev
 endly -c=pg
 ```
 
+4. IDE setup (ideally with YAML, JSON, CSV viewer)
+
+a) Atom with tablr plugin  (apm install tablr)
+
+
 ## Typical e2e testing workflow
 
  1. System preparation
@@ -290,14 +295,14 @@ endly
 
 ```bash
     
-    endly -t=test
+    endly -t='init,test'
     
 ```
 
 
 
 
-4) Adding selenium test
+4) **Adding selenium test**
 
 - [WebDriver](https://github.com/tebeka/selenium/blob/master/selenium.go#L213)
 - [WebElement](https://github.com/tebeka/selenium/blob/master/selenium.go#L370)
@@ -348,7 +353,6 @@ pipeline:
 
 ```
 
-
 - **Client side validation**
 
 @test.yaml
@@ -386,8 +390,25 @@ pipeline:
 
 
 
-6) Adding REST test
+c) As part of regression workflow
 
+    modify regression/use_cases_001_xx_case/selenium_test.json
+    
+    -- modify Test{1..002} to Test{1..001} to ony work on use case 001
+    -- make sure that application is up and running (endly -t='init,test'
+    
+    
+```bash
+endly -r='test'
+```    
+
+
+
+5) **Adding REST test**
+
+
+
+a) Running a test vi shared [action workflow](https://github.com/viant/endly/blob/master/shared/workflow/action/action.csv)
 
 
 ```bash
@@ -415,8 +436,41 @@ endly -w=action service='rest/runner' action=send request='@send.json'
 ```
 
 
+b) Running as inline workflow
 
-5) Adding HTTP test
+
+```bash
+endly -r=test
+```
+
+test.yaml
+```yaml
+
+pipeline:
+  task1:
+    action: rest/runner:send
+    request: "@send.json" 
+
+```
+
+
+c) As part of regression workflow
+
+    modify regression/use_cases_001_xx_case/rest_test.json
+    
+    -- modify Test{1..002} to Test{1..001} to ony work on use case 001
+    -- make sure that application is up and running (endly -t='init,test'
+    
+    
+```bash
+endly -r='test'
+```    
+
+
+6) **Adding HTTP test**
+
+a) Running a request vi shared [action workflow](https://github.com/viant/endly/blob/master/shared/workflow/action/action.csv)
+
 
 ```bash
 endly -w=action service='http/runner' action=send request='@send.json'
@@ -446,7 +500,35 @@ endly -w=action service='http/runner' action=send request='@send.json'
 
 
 
-6) Adding test with use case data:
+b) Running with as inline workflow
+
+
+```bash
+endly -r=test
+```
+
+test.yaml
+```yaml
+
+pipeline:
+  task1:
+    action: http/runner:send
+    request: "@send.json" 
+
+```
+
+
+c) As part of regression workflow
+
+    modify regression/use_cases_001_xx_case/http_test.json
+    
+    -- modify Test{1..002} to Test{1..001} to ony work on use case 001
+    -- make sure that application is up and running (endly -t='init,test'
+   
+
+
+
+7) Adding test with use case data:
 
 
 a) change regression/use_cases/001_xx_case/db1_data.json to the following
@@ -509,36 +591,10 @@ c) modify regression/use_cases_001_xx_case/rest_test.json
 
 
 
-6) Adding REST test
-
-
-```bash
-endly -w=action service='rest/runner' action=send request='@send.json'
-```
-
-@send.json
-```json
-{
-
-    "Method": "POST",
-    "URL": "http://127.0.0.1:8080/v1/api/dummy",
-    "Request":{
-        "Data":{
-            "TypeId":1,
-            "Name":"dummy 33333"
-        }
-    },
-	"Expect": {
-        "Data": {
-            "Name":"dummy 33333"
-        }	
-	}
-}
-```
-
-
-
 ## Validation
+
+
+clone this project to run the following examples:
 
 
 ```bash
